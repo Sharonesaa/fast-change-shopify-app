@@ -20,7 +20,7 @@ export async function loader({ request }) {
         before
     });
 
-    return Response.json({ products, pageInfo, admin });
+    return { products, pageInfo, admin };
 };
 
 export async function action({ request }) {
