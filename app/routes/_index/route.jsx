@@ -1,7 +1,12 @@
 import { redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { login } from "../../shopify.server";
-import styles from "./styles.module.css";
+import { AppProvider, Box, Button, Card, Layout, Page, Text, TextField } from "@shopify/polaris";
+import { useState } from "react";
+import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
+
+
+export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
@@ -15,41 +20,51 @@ export const loader = async ({ request }) => {
 
 export default function App() {
   const { showForm } = useLoaderData();
+  const [shop, setShop] = useState("");
 
   return (
-    <div className={styles.index}>
-      <div className={styles.content}>
-        <h1 className={styles.heading}>A short heading about [your app]</h1>
-        <p className={styles.text}>
-          A tagline about [your app] that describes your value proposition.
-        </p>
-        {showForm && (
-          <Form className={styles.form} method="post" action="/auth/login">
-            <label className={styles.label}>
-              <span>Shop domain</span>
-              <input className={styles.input} type="text" name="shop" />
-              <span>e.g: my-shop-domain.myshopify.com</span>
-            </label>
-            <button className={styles.button} type="submit">
-              Log in
-            </button>
-          </Form>
-        )}
-        <ul className={styles.list}>
-          <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
-          </li>
-          <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
-          </li>
-          <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
-          </li>
-        </ul>
-      </div>
-    </div>
+    <AppProvider i18n={{}}>
+      <Page title="FastChange: Product Updates Made Easy">
+        <Layout>
+          <Layout.Section>
+            <Card sectioned>
+              <Text as="h2" variant="headingMd">
+                Quickly update product titles, prices, inventory, and status. No deep catalog digging required.
+              </Text>
+
+              {showForm && (
+                <Form method="post" action="/auth/login">
+                  <Box paddingBlockStart="400">
+                    <TextField
+                      label="Shop domain"
+                      value={shop}
+                      onChange={setShop}
+                      name="shop"
+                      placeholder="e.g: my-shop-domain.myshopify.com"
+                      autoComplete="off"
+                    />
+                  </Box>
+                  <Box paddingBlockStart="400">
+                    <Button submit primary>Log in</Button>
+                  </Box>
+                </Form>
+              )}
+
+              <ul style={{ marginTop: "1rem", paddingLeft: "1.5rem" }}>
+                <li>
+                  <Text as="span" fontWeight="semibold">Real-time editing</Text>: Apply changes instantly through a fast and intuitive interface.
+                </li>
+                <li>
+                  <Text as="span" fontWeight="semibold">GraphQL integration</Text>: Connects directly to your store’s GraphQL API.
+                </li>
+                <li>
+                  <Text as="span" fontWeight="semibold">Save time</Text>: Update multiple products at once.
+                </li>
+              </ul>
+            </Card>
+          </Layout.Section>
+        </Layout>
+      </Page>
+    </AppProvider>
   );
 }
