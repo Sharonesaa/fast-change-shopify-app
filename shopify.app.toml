@@ -3,7 +3,7 @@
 client_id = "fe8517d4e958f4e458bd2834080eed6d"
 name = "fastChange"
 handle = "fastchange"
-application_url = "https://fast-change-shopify-app.onrender.com"
+application_url = "https://fast-change-shopify-app-qafd.onrender.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products,read_locations,write_inventory"
 
 [auth]
 redirect_urls = [
-  "https://fast-change-shopify-app.onrender.com/auth/callback", 
-  "https://fast-change-shopify-app.onrender.com/auth/shopify/callback", 
-  "https://fast-change-shopify-app.onrender.com/api/auth/callback"
+  "https://fast-change-shopify-app-qafd.onrender.com/auth/callback", 
+  "https://fast-change-shopify-app-qafd.onrender.com/auth/shopify/callback", 
+  "https://fast-change-shopify-app-qafd.onrender.com/api/auth/callback"
 ]
 
 [pos]
